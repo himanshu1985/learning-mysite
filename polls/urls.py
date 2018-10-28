@@ -17,4 +17,8 @@ urlpatterns = [
 
     # ex: /polls/5/vote/
     path('<int:question_id>/vote/', views.vote, name='vote'),
+
+    path('create_question/', views.QuestionCreate.as_view(), name='create_question'),
+
+    path('create_choice', views.ChoiceCreate.as_view(), name='create_choice')
 ]

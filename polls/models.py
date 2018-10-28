@@ -1,5 +1,6 @@
 import datetime
 from django.db import models
+from django.urls import reverse
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils import timezone
 # Create your models here.
@@ -17,6 +18,9 @@ class Question(models.Model):
         now = timezone.now()
         return now - datetime.timedelta(days=1) <= self.pub_date <= now
 
+    def get_absolute_url(self):
+        return reverse('polls:detail', kwargs={'pk': self.pk})
+
 
 @python_2_unicode_compatible  # only if you need to support Python 2
 class Choice(models.Model):
@@ -26,3 +30,6 @@ class Choice(models.Model):
 
     def __str__(self):
         return self.choice_text
+
+    def get_absolute_url(self):
+        return reverse('polls:detail', kwargs={'pk': self.question.id})
